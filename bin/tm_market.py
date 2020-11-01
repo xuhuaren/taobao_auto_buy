@@ -7,14 +7,42 @@ class TM_Market(AutoBuyBase):
 
     def _login(self):
 
+        self._browser.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
+                      "source": """
+                        Object.defineProperty(navigator, 'webdriver', {
+                          get: () => undefined
+                        })
+                      """
+                    })
         self._browser.get(self._main_url)
+        self._browser.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
+                      "source": """
+                        Object.defineProperty(navigator, 'webdriver', {
+                          get: () => undefined
+                        })
+                      """
+                    })
         self._browser.find_element_by_link_text("亲，请登录").click()
+        self._browser.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
+                      "source": """
+                        Object.defineProperty(navigator, 'webdriver', {
+                          get: () => undefined
+                        })
+                      """
+                    })
 
         current_url = self._browser.current_url
         self._wait_redirect(current_url)
 
     def _goto_detail(self):
-
+        
+        self._browser.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
+                      "source": """
+                        Object.defineProperty(navigator, 'webdriver', {
+                          get: () => undefined
+                        })
+                      """
+                    })
         self._browser.get(self._target_url)
 
     def _buy(self):
