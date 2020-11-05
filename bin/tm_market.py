@@ -53,20 +53,32 @@ class TM_Market(AutoBuyBase):
 
 
         buy_element = WebDriverWait(self._browser, 20, self.delta).until(EC.presence_of_element_located((By.ID, "J_LinkBasket")))
+        buy_element.click()
+        
+        sumit_element = WebDriverWait(self._browser, 20, self.delta).until(EC.presence_of_element_located((By.XPATH, "//a[@data-tmc='cart' and @class='tm-mcCartBtn']")))
+        self._click_until_new_tab(sumit_element)
 
         self._logger.info("正在倒计时")
         self._timer(self._buy_time)
         self._logger.info("开始抢购")
 
-        buy_element = WebDriverWait(self._browser, 20, self.delta).until(EC.element_to_be_clickable((By.ID, "J_LinkBasket")))
-        buy_element.click()
+        #buy_element = WebDriverWait(self._browser, 20, self.delta).until(EC.element_to_be_clickable((By.ID, "J_LinkBasket")))
+        #buy_element.click()
         #self._click_until_redirect(buy_element, self._browser.current_url)
 
-        sumit_element = WebDriverWait(self._browser, 20, self.delta).until(EC.presence_of_element_located((By.XPATH, "//a[@data-tmc='cart' and @class='tm-mcCartBtn']")))
-        sumit_element = WebDriverWait(self._browser, 20, self.delta).until(EC.element_to_be_clickable((By.XPATH, "//a[@data-tmc='cart' and @class='tm-mcCartBtn']")))
-        self._click_until_new_tab(sumit_element)
+        #sumit_element = WebDriverWait(self._browser, 20, self.delta).until(EC.presence_of_element_located((By.XPATH, "//a[@data-tmc='cart' and @class='tm-mcCartBtn']")))
+        #sumit_element = WebDriverWait(self._browser, 20, self.delta).until(EC.element_to_be_clickable((By.XPATH, "//a[@data-tmc='cart' and @class='tm-mcCartBtn']")))
+        #self._click_until_new_tab(sumit_element)
+        
+        sumit_element = WebDriverWait(self._browser, 60, self.delta).until(EC.presence_of_element_located((By.ID, "J_Go")))
+        self._click_until_redirect(sumit_element, self._browser.current_url)
+#
+        checkout_element = WebDriverWait(self._browser, 60, self.delta).until(EC.presence_of_element_located((By.XPATH, "//div[@id='submitOrderPC_1']//a[@class='go-btn']")))
+        self._click_until_redirect(checkout_element, self._browser.current_url)
 
-        self._checkout()
+        self._logger.info("抢购结束")
+
+        #self._checkout()
 
     def _checkout(self):
 
