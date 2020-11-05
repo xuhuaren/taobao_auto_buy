@@ -110,6 +110,14 @@ class AutoBuyBase(object):
             raise e
 
     def _click_until_redirect(self, element, current_url):
+        
+        self._browser.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
+                      "source": """
+                        Object.defineProperty(navigator, 'webdriver', {
+                          get: () => undefined
+                        })
+                      """
+                    })    
 
         while current_url == self._browser.current_url:
             try:
@@ -118,14 +126,38 @@ class AutoBuyBase(object):
                 continue
 
     def _click_until_new_tab(self, element):
+        
+        self._browser.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
+                      "source": """
+                        Object.defineProperty(navigator, 'webdriver', {
+                          get: () => undefined
+                        })
+                      """
+                    })  
 
         while len(self._browser.window_handles) == 1:
             try:
                 element.click()
             except:
                 continue
+            
+        self._browser.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
+                      "source": """
+                        Object.defineProperty(navigator, 'webdriver', {
+                          get: () => undefined
+                        })
+                      """
+                    })  
 
         self._browser.switch_to.window(self._browser.window_handles[1])
+        
+        self._browser.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
+                      "source": """
+                        Object.defineProperty(navigator, 'webdriver', {
+                          get: () => undefined
+                        })
+                      """
+                    })  
 
     def _login(self):
 
