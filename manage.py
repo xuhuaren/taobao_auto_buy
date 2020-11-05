@@ -24,13 +24,17 @@ def main():
         config_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "config/config.json"))
         config = read(config_path)
         welcome("Config Json 参数读取成功", config["target_url"], config["buy_time"])
-
+        
+    chaoshi = TM_Market(**config)
+    chaoshi.start()
+    """
     if "chaoshi" in config["target_url"]:
         chaoshi = TM_Market(**config)
         chaoshi.start()
     else:
         taobao = Taobao(**config)
         taobao.start()
+    """
 
 if __name__ == "__main__":
     main()
