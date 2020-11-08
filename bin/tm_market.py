@@ -70,10 +70,12 @@ class TM_Market(AutoBuyBase):
         #sumit_element = WebDriverWait(self._browser, 20, self.delta).until(EC.element_to_be_clickable((By.XPATH, "//a[@data-tmc='cart' and @class='tm-mcCartBtn']")))
         #self._click_until_new_tab(sumit_element)
         
-        sumit_element = WebDriverWait(self._browser, 300, self.delta).until(EC.presence_of_element_located((By.ID, "J_Go")))
+        sumit_element = WebDriverWait(self._browser, 300, self.delta).until(EC.element_to_be_clickable((By.ID, "J_Go")))
         self._click_until_redirect(sumit_element, self._browser.current_url)
+        self._logger.info(sumit_element)
 #
-        checkout_element = WebDriverWait(self._browser, 300, self.delta).until(EC.presence_of_element_located((By.XPATH, "//div[@id='submitOrderPC_1']//a[@class='go-btn']")))
+        checkout_element = WebDriverWait(self._browser, 300, self.delta).until(EC.element_to_be_clickable((By.XPATH, "//div[@id='submitOrderPC_1']//a[@class='go-btn']")))
+        self._logger.info(checkout_element)
         self._click_until_redirect(checkout_element, self._browser.current_url)
 
         self._logger.info("抢购结束")
