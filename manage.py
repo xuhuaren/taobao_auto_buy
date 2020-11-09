@@ -7,6 +7,7 @@ sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 from bin.tb import Taobao
 from bin.tm_market import TM_Market
 from lib.utils import read, welcome
+import time 
 
 
 
@@ -27,6 +28,7 @@ def main():
         
     chaoshi = TM_Market(**config)
     chaoshi.start()
+    time.sleep(60*30)
     """
     if "chaoshi" in config["target_url"]:
         chaoshi = TM_Market(**config)
